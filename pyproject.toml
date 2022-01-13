@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "simplefit"
+version = "0.1.0"
+description = "Package that will clean the data, do basic EDA and provide an insight to basic models, LR and ridge"
+authors = ["Reza Zoe Navya Sanchit"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
