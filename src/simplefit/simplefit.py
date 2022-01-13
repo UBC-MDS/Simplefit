@@ -33,7 +33,34 @@ def get_eda(data, dist_cols=None, pair_cols=None, corr_method="pearson", text_co
         >>> get_eda(df, pair_cols = ['danceability', 'loudness'], corr_method='kendall', class_label='target')
     """
 
+def regressor(train_df, target_col, numeric_feats = None, categorical_feats=None, text_col=None, cv=5):
+    """This function preprocess the data, fit baseline model(dummyregresor) and ridge with default setups to provide datascientists 
+        easy access to the common models results(scores). 
 
+        Parameters
+        ----------
+        train_df : pandas.DataFrame
+            The clean train data which includes target column.
+        target_col : str
+            The column of the train data that has the target values.
+        numeric_feats = list, optional
+            The numeric features that needs to be considered in the model. If the user do not define this argument, the function will assume all the columns except the identified ones in other arguments as numeric features.
+        categorical_feats : list, optional
+            The categorical columns for which needs onehotencoder preprocessing.  
+        text_col : list, optional
+            The column containing free form of text, example: "Hi, I didn't wsnt to go there" for doing countvectorizer preprocessing .
+        cv : int, optional
+            The number of folds on the data for train and validation set.
+
+        Returns
+        -------
+        Data frame
+            A data frame that includes test scores and train scores for each model.
+        Examples
+        -------
+        >>> regressor(train_df, target_col = 'popularity', categorical_features='None')
+        >>> regressor(train_df, target_col = 'popularity', numeric_feats = ['danceability', 'loudness'], categorical_feats=['genre'], text_col='track_name', cv=10)
+    """
 
 
 
