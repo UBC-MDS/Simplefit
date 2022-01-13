@@ -29,8 +29,8 @@ def get_eda(data, dist_cols=None, pair_cols=None, corr_method="pearson", text_co
             A list of plot objects created by this function
         Examples
         -------
-        >>> eda_numeric_columns(df)
-        >>> eda_numeric_columns(df, pair_cols = ['danceability', 'loudness'], corr_method='kendall', class_label='target')
+        >>> get_eda(df)
+        >>> get_eda(df, pair_cols = ['danceability', 'loudness'], corr_method='kendall', class_label='target')
     """
 
 
