@@ -64,7 +64,7 @@ def regressor(train_df, target_col, numeric_feats = None, categorical_feats=None
 
 
 def classifier(train_df, target_col, numeric_feats = None, categorical_feats=None, text_col=None, cv=5):
-    """This function preprocess the data, fit baseline model(dummyclassifier) and ridge with default setups to provide data scientists 
+    """This function preprocess the data, fit baseline model(dummyclassifier) and logistic regression with default setups to provide data scientists 
         easy access to the common models results(scores). 
         Parameters
         ----------
@@ -86,8 +86,8 @@ def classifier(train_df, target_col, numeric_feats = None, categorical_feats=Non
             A data frame that includes test scores and train scores for each model.
         Examples
         -------
-        >>> classifier(train_df, target_col = 'popularity', categorical_features='None')
-        >>> classifier(train_df, target_col = 'popularity', numeric_feats = ['danceability', 'loudness'], categorical_feats=['genre'], text_col='track_name', cv=10)
+        >>> classifier(train_df, target_col = 'target', categorical_features='None')
+        >>> classifier(train_df, target_col = 'target', numeric_feats = ['danceability', 'loudness'], categorical_feats=['genre'], text_col='track_name', cv=10)
     """
 
 
