@@ -34,7 +34,7 @@ def get_eda(data, dist_cols=None, pair_cols=None, corr_method="pearson", text_co
     """
 
 def regressor(train_df, target_col, numeric_feats = None, categorical_feats=None, text_col=None, cv=5):
-    """This function preprocess the data, fit baseline model(dummyregresor) and ridge with default setups to provide datascientists 
+    """This function preprocess the data, fit baseline model(dummyregresor) and ridge with default setups to provide data scientists 
         easy access to the common models results(scores). 
 
         Parameters
@@ -48,7 +48,7 @@ def regressor(train_df, target_col, numeric_feats = None, categorical_feats=None
         categorical_feats : list, optional
             The categorical columns for which needs onehotencoder preprocessing.  
         text_col : list, optional
-            The column containing free form of text, example: "Hi, I didn't wsnt to go there" for doing countvectorizer preprocessing .
+            The column containing free form of text, example: "Hi, I wasn't to go there" for doing countvectorizer preprocessing .
         cv : int, optional
             The number of folds on the data for train and validation set.
 
