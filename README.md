@@ -16,6 +16,8 @@ $ pip install simplefit
 
 Interested in contributing? Check out the contributing guidelines. Please note that this project is released with a Code of Conduct. By contributing to this project, you agree to abide by its terms.
 
+This python package was developed by Mohammadreza Mirzazadeh, Zihan Zhou, Navya Dahiya, and Sanchit Singh. The team is from the Master of Data Science program at the University of the British Columbia.
+
 ## License
 
 `simplefit` was created by Reza Zoe Navya Sanchit. It is licensed under the terms of the MIT license.
