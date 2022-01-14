@@ -57,7 +57,7 @@ Ready to contribute? Here's how to set up `simplefit` for local development.
 
 4. When you're done making changes, check that your changes conform to any code formatting requirements and pass any tests.
 
-5. Commit your changes and open a pull request.
+5. Commit your changes and open a pull request. We will check and get back to you as soon as we can.
 
 ## Pull Request Guidelines
 
@@ -66,8 +66,11 @@ Before you submit a pull request, check that it meets these guidelines:
 1. The pull request should include additional tests if appropriate.
 2. If the pull request adds functionality, the docs should be updated.
 3. The pull request should work for all currently supported operating systems and versions of Python.
+4. The pull request should include a detailed explanation of your updates.
+5. In your files please update the README.md about your new changes such as the version numbers, installation procedure, etc. if needed.
+6. In the pull request please add the project adminstrators as reviewers to review your work.
 
 ## Code of Conduct
 
 Please note that the `simplefit` project is released with a 
-Code of Conduct. By contributing to this project you agree to abide by its terms.
+[Code of Conduct](https://github.com/UBC-MDS/simplefit/blob/main/CONDUCT.md). By contributing to this project you agree to abide by its terms.
