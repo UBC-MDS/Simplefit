@@ -15,6 +15,7 @@ def cleaner(data):
         Examples
         --------
         >>> cleaner(example_data)
+    """
 
 
 def get_eda(data, dist_cols=None, pair_cols=None, corr_method="pearson", text_col=None, class_label=None):
