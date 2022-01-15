@@ -41,10 +41,10 @@ Project maintainers who do not follow or enforce the Code of Conduct in good fai
 ## Contact 
 The project team can be contacted at any of the following:
   
-   navyad265@gmail.com (Navya Dahiya)
-   mrezamirzazadeh@gmail.com (Reza Mirzazadeh)
-   (Sanchit Singh)
-   zoe.zzh121@gmail.com (Zihan Zhou)
+* navyad265@gmail.com (Navya Dahiya)
+* mrezamirzazadeh@gmail.com (Reza Mirzazadeh)
+* sanchit120496@gmail.com (Sanchit Singh)
+* zoe.zzh121@gmail.com (Zihan Zhou)
 
 ## Attribution
 
