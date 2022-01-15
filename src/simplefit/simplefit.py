@@ -5,12 +5,12 @@ def cleaner(Spotify Tracks DB: DataFrame):
         Parameters
         ----------
         data : pandas.DataFrame
-            a loaded dataframe based on a downloaded Spotify Tracks DB dataset (https://www.kaggle.com/zaheenhamidani/ultimate-spotify-tracks-db#)
+            a loaded dataframe 
   
         Returns
         -------
             (DataFrame, string):  A cleaned and simplified DataFrame of the relevant columns for summary and visualization,
-       
+            (DataFrame, string):  for train_df.describe()
         Examples
         --------
         >>> cleaner(example_data)
