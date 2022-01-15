@@ -1,7 +1,25 @@
 # simplefit
 
-Package that will clean the data, do basic EDA and provide an insight to basic models, LR and ridge
+A python package that cleans the data, does basic EDA and provides an insight to baseline and basic Classification and Regression models, namely Logistic Regression and Ridge respectively
+<br>
 
+### Overview
+This package helps data scientists to clean the data, perform basic EDA, visualize graphical interpretations and analyse performance of the baseline model and basic Classification or Regression models, namely Logistic Regression, Ridge on their data.
+<br>
+
+### Functions
+---
+<br>
+| Function Name | Input | Output | Description |
+|-----------|------------|---------------|------------------|
+| cleaner   | `dataframe`  |  list of 3 dataframes | Loads and cleans the dataset, removes NA rows, strip extra white spaces, etc|
+| get_eda | `dataframe`, `dist_cols`, `pair_cols`, `corr_method`,`text_col`,`class_label` | list of plot objects from EDA | Creates common exploratory analysis visualizations on numeric and categorical columns in the dataset which are provided to it. |
+|regressor| `train_df`, `target_col`, `numeric_feats`, `categorical_feats`, `text_col`, `cv`| `dataframe` |Preprocesses the data, fits baseline model(`Dummy Regressor`) and `Ridge` with default setup and returns model scores  |
+|classifier|`train_df`, `target_col`, `numeric_feats`, `categorical_feats`, `text_col`, `cv` |`dataframe`|Preprocesses the data, fits baseline model(`Dummy Classifier`) and `Logistic Regression` with default setup and returns model scores|
+
+<br>
+### Our Package in the Python Ecosystem
+---
 ## Installation
 
 ```bash
