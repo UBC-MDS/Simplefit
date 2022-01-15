@@ -38,6 +38,14 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be repor
 
 Project maintainers who do not follow or enforce the Code of Conduct in good faith may face temporary or permanent repercussions as determined by other members of the project's leadership.
 
+## Contact 
+The project team can be contacted at any of the following:
+  
+* navyad265@gmail.com (Navya Dahiya)
+* mrezamirzazadeh@gmail.com (Reza Mirzazadeh)
+* sanchit120496@gmail.com (Sanchit Singh)
+* zoe.zzh121@gmail.com (Zihan Zhou)
+
 ## Attribution
 
 This Code of Conduct is adapted from the [Contributor Covenant homepage](http://contributor-covenant.org/version/1/4), version 1.4.
