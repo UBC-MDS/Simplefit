@@ -39,6 +39,13 @@ Interested in contributing? Check out the contributing guidelines. Please note t
 
 This python package was developed by Mohammadreza Mirzazadeh, Zihan Zhou, Navya Dahiya, and Sanchit Singh. The team is from the Master of Data Science program at the University of the British Columbia.
 
+## Contributors
+
+- Mohammadreza Mirzazadeh          @rezam747
+- Zihan Zhou                       @zzhzoe
+- Navya Dahiya                     @nd265
+- Sanchit Singh                    @Sanchit120496
+
 ## License
 
 `simplefit` was created by Reza Zoe Navya Sanchit. It is licensed under the terms of the MIT license.
