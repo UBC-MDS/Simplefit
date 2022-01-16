@@ -1,11 +1,10 @@
 def cleaner(data):
-     """Load downloaded data, clean the dataset, remove the NA score. 
-        Clean data(remove Nan rows, strip extra white spaces from column names, and data, convert all column names to lower case, etc)
-        Return train_df.info() and train_df.describe()
+     """Load data and Clean data(remove Nan rows, strip extra white spaces from column names, and data, convert all column names to lower case, etc)
+        Return clean data, train_df.info() and train_df.describe()
         Parameters
         ----------
         data : pandas.DataFrame
-            a loaded dataframe 
+            The dataset provided by the user in .csv format 
   
         Returns
         -------
