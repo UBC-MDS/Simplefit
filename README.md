@@ -5,19 +5,20 @@ A python package that cleans the data, does basic EDA and returns scores for bas
 
 ### Overview
 This package helps data scientists to clean the data, perform basic EDA, visualize graphical interpretations and analyse performance of the baseline model and basic Classification or Regression models, namely Logistic Regression, Ridge on their data.
-<br>
+
 
 ### Functions
 ---
-<br>
-| Function Name | Input | Output | Description |
-|-----------|------------|---------------|------------------|
-| cleaner   | `dataframe`  |  list of 3 dataframes | Loads and cleans the dataset, removes NA rows, strip extra white spaces, etc|
-| get_eda | `dataframe`, `dist_cols`, `pair_cols`, `corr_method`,`text_col`,`class_label` | list of plot objects from EDA | Creates common exploratory analysis visualizations on numeric and categorical columns in the dataset which are provided to it. |
-|regressor| `train_df`, `target_col`, `numeric_feats`, `categorical_feats`, `text_col`, `cv`| `dataframe` |Preprocesses the data, fits baseline model(`Dummy Regressor`) and `Ridge` with default setup and returns model scores  |
-|classifier|`train_df`, `target_col`, `numeric_feats`, `categorical_feats`, `text_col`, `cv` |`dataframe`|Preprocesses the data, fits baseline model(`Dummy Classifier`) and `Logistic Regression` with default setup and returns model scores|
+| Function Name | Input                                                                                      | Output                        | Description                                                                                                                          |   |
+|---------------|--------------------------------------------------------------------------------------------|-------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|---|
+| cleaner       | `dataframe`                                                                                | list of 3 dataframes          | Loads and cleans the dataset, removes NA rows, strip extra white spaces, etc                                                         |   |
+| get_eda       | `dataframe`, `dist_cols`, `pair_cols`, `corr_method`,`text_col`,`class_label`              | list of plots from EDA | Creates common exploratory analysis visualizations on numeric and categorical columns in the dataset which are provided to it        |   |
+| regressor     | `train_df`, `target_col`, `numeric_feats`, `categorical_feats`, `text_col`, `cv`           | `dataframe`                   | Preprocesses the data, fits baseline model(`Dummy Regressor`) and `Ridge` with default setup and returns model scores                |   |
+| classifier    | `train_df` ,  `target_col` ,  `numeric_feats` ,  `categorical_feats` ,  `text_col` ,  `cv` | `dataframe`                   | Preprocesses the data, fits baseline model(`Dummy Classifier`) and `Logistic Regression` with default setup and returns model scores |   |
 
-<br>
+
+
+
 ### Our Package in the Python Ecosystem
 ---
 There exists a subset of our package as standalone packages, namely [auto-eda](https://pypi.org/project/auto-eda/), [eda-report](https://pypi.org/project/eda-report/), [quick-eda](https://pypi.org/project/quick-eda/), [s11-classifier](https://pypi.org/project/s11-classifier/). But these packages only do the EDA or just the classification using `XGBoostClassifier`. But with our package, we aim to do all the basic steps of a ML pipeline and save the data scientist's time and effort by cleaning, preprocessing, returning grpahical visualisations from EDA and providing an insight about the basic model performances, after which the user can decide which other models to use.
