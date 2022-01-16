@@ -1,6 +1,6 @@
 # simplefit
 
-A python package that cleans the data, does basic EDA and provides an insight to baseline and basic Classification and Regression models, namely Logistic Regression and Ridge respectively
+A python package that cleans the data, does basic EDA and returns scores for basic classification and regresion models
 <br>
 
 ### Overview
@@ -20,6 +20,9 @@ This package helps data scientists to clean the data, perform basic EDA, visuali
 <br>
 ### Our Package in the Python Ecosystem
 ---
+There exists a subset of our package as standalone packages, namely [auto-eda](https://pypi.org/project/auto-eda/), [eda-report](https://pypi.org/project/eda-report/), [quick-eda](https://pypi.org/project/quick-eda/), [s11-classifier](https://pypi.org/project/s11-classifier/). But these packages only do the EDA or just the classification using `XGBoostClassifier`. But with our package, we aim to do all the basic steps of a ML pipeline and save the data scientist's time and effort by cleaning, preprocessing, returning grpahical visualisations from EDA and providing an insight about the basic model performances, after which the user can decide which other models to use.
+
+
 ## Installation
 
 ```bash
