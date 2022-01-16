@@ -1,6 +1,6 @@
 # simplefit
 
-A python package that cleans the data, does basic EDA and returns scores for basic classification and regresion models
+A python package that cleans the data, does basic EDA and returns scores for basic classification and regression models
 <br>
 
 ### Overview
