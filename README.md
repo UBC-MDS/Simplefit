@@ -9,13 +9,12 @@ This package helps data scientists to clean the data, perform basic EDA, visuali
 
 ### Functions
 ---
-| Function Name | Input                                                                                      | Output                        | Description                                                                                                                          |   |
-|---------------|--------------------------------------------------------------------------------------------|-------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|---|
-| cleaner       | `dataframe`                                                                                | list of 3 dataframes          | Loads and cleans the dataset, removes NA rows, strip extra white spaces, etc                                                         |   |
-| get_eda       | `dataframe`, `dist_cols`, `pair_cols`, `corr_method`,`text_col`,`class_label`              | list of plots from EDA | Creates common exploratory analysis visualizations on numeric and categorical columns in the dataset which are provided to it        |   |
-| regressor     | `train_df`, `target_col`, `numeric_feats`, `categorical_feats`, `text_col`, `cv`           | `dataframe`                   | Preprocesses the data, fits baseline model(`Dummy Regressor`) and `Ridge` with default setup and returns model scores                |   |
-| classifier    | `train_df` ,  `target_col` ,  `numeric_feats` ,  `categorical_feats` ,  `text_col` ,  `cv` | `dataframe`                   | Preprocesses the data, fits baseline model(`Dummy Classifier`) and `Logistic Regression` with default setup and returns model scores |   |
-
+| Function Name | Input                                                                                      | Output                        | Description                                                                                                                          |
+|---------------|--------------------------------------------------------------------------------------------|-------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| cleaner       | `dataframe`                                                                                | list of 3 dataframes          | Loads and cleans the dataset, removes NA rows, strip extra white spaces, etc  and returns clean dataframe along with `data.info()` , `data.describe()` as dataframes                                                     |
+| get_eda       | `dataframe`, `dist_cols`, `pair_cols`, `corr_method`,`text_col`,`class_label`              | list of plot objects from EDA | Creates common exploratory analysis visualizations on numeric and categorical columns in the dataset which are provided to it  and returns a list of plots requested by the user      |
+| regressor     | `train_df`, `target_col`, `numeric_feats`, `categorical_feats`, `text_col`, `cv`           | `dataframe`                   | Preprocesses the data, fits baseline model(`Dummy Regressor`) and `Ridge` with default setup and returns model scores in the form of a dataframe               |
+| classifier    | `train_df` ,  `target_col` ,  `numeric_feats` ,  `categorical_feats` ,  `text_col` ,  `cv` | `dataframe`                   | Preprocesses the data, fits baseline model(`Dummy Classifier`) and `Logistic Regression` with default setup and returns model scores in the form of a dataframe|
 
 
 
