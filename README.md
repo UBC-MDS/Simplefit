@@ -41,10 +41,10 @@ Interested in contributing? Check out the contributing guidelines. Please note t
 
 This python package was developed by the following Master of Data Science program candidates at the University of the British Columbia:
 
-- Mohammadreza Mirzazadeh          @rezam747
-- Zihan Zhou                       @zzhzoe
-- Navya Dahiya                     @nd265
-- Sanchit Singh                    @Sanchit120496
+- Mohammadreza Mirzazadeh [@rezam747](https://github.com/rezam747)
+- Zihan Zhou              [@zzhzoe](https://github.com/zzhzoe)
+- Navya Dahiya            [@nd265](https://github.com/nd265)
+- Sanchit Singh           [@Sanchit120496](https://github.com/Sanchit120496)
 
 ## License
 
