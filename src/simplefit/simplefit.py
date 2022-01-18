@@ -1,3 +1,13 @@
+import numpy as np
+import pandas as pd
+from sklearn.dummy import DummyRegressor
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LinearRegression, Ridge, RidgeCV
+
 def cleaner(data):
      """Load data and Clean data(remove Nan rows, strip extra white spaces from column names, and data, convert all column names to lower case, etc)
         Return clean data, train_df.info() and train_df.describe()
@@ -80,6 +90,36 @@ def regressor(train_df, target_col, numeric_feats = None, categorical_feats=None
         >>> regressor(train_df, target_col = 'popularity', categorical_features='None')
         >>> regressor(train_df, target_col = 'popularity', numeric_feats = ['danceability', 'loudness'], categorical_feats=['genre'], text_col='track_name', cv=10)
     """
+
+
+    X_train = train_df.drop(columns=target_col, axis=1)
+    y_train = train_df[target_col[0]]
+    
+    text_feat = text_col[0]
+
+    preprocessor = make_column_transformer(
+        (StandardScaler(), numeric_feats),
+        (OneHotEncoder(), categorical_feats),
+        (CountVectorizer(stop_words="english"), text_feat)
+    )
+
+    dummy = DummyRegressor()
+    ridge = make_pipeline(preprocessor, Ridge())
+    ridge_cv = make_pipeline(preprocessor, RidgeCV())
+    lr = make_pipeline(preprocessor, LinearRegression())
+
+    results = pd.Series(dtype='float64') 
+
+    models = {"DummyRegressor": dummy, "Ridge" : ridge, "RidgeCv" : ridge_cv, "linearRegression" : lr}
+
+    for model in models :
+        scores = cross_validate(models[model], X_train, y_train, cv = cv)
+        mean_scores = pd.DataFrame(scores).mean()
+        results = pd.concat([results, mean_scores], axis = 1)
+    results = results.drop(columns = 0, axis=1)
+    results.columns = models.keys
+    
+    return results
 
 
 def classifier(train_df, target_col, numeric_feats = None, categorical_feats=None, text_col=None, cv=5):
