@@ -8,6 +8,15 @@ from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.linear_model import LinearRegression, Ridge, RidgeCV
 
+class InputValueException(Exception):
+    """Custom error used when the inputs of the functions are not suitable."""
+
+    pass
+
+
+
+
+
 def cleaner(data):
      """Load data and Clean data(remove Nan rows, strip extra white spaces from column names, and data, convert all column names to lower case, etc)
         Return clean data, train_df.info() and train_df.describe()
@@ -76,7 +85,7 @@ def regressor(train_df, target_col, numeric_feats = None, categorical_feats=None
             The numeric features that needs to be considered in the model. If the user do not define this argument, the function will assume all the columns except the identified ones in other arguments as numeric features.
         categorical_feats : list, optional
             The categorical columns for which needs onehotencoder preprocessing.  
-        text_col : list, optional
+        text_col : str, optional
             The column containing free form of text, example: "Hi, I wasn't to go there" for doing countvectorizer preprocessing .
         cv : int, optional
             The number of folds on the data for train and validation set.
@@ -92,15 +101,47 @@ def regressor(train_df, target_col, numeric_feats = None, categorical_feats=None
     """
 
 
+    if (not (train_df.isna().sum().sum() == 0)) or (not(isinstance(train_df , pd.core.frame.DataFrame))):
+        raise InputValueException(
+            f"Invalid function input. Please pass a clean pandas data frame"
+        )
+
+    if (not (target_col in train_df.columns.tolist())) or (not(isinstance(target_col , str))):
+        raise InputValueException(
+            f"Invalid function input. Please use one out of {train_df.columns.tolist()}"
+        )
+
+
     X_train = train_df.drop(columns=target_col, axis=1)
     y_train = train_df[target_col[0]]
+
+    numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
+    newdf = X_train.select_dtypes(include=numerics)
+    valid_numeric_col = newdf.columns.tolist()
+    _newdf = X_train.select_dtypes(exclude=numerics)
+    valid_categorical_col =  _newdf.columns.tolist()
+
+
+    if (not (set(numeric_feats).isubset(set(valid_numeric_col)))) or (not(isinstance(numeric_feats , list))):
+        raise InputValueException(
+            f"Invalid numeric features. Please use a sublist out of {valid_numeric_col}"
+        )
     
-    text_feat = text_col[0]
+    if (not (set(categorical_feats).isubset(set(valid_categorical_col)))) or (not(isinstance(categorical_feats , list))):
+        raise InputValueException(
+            f"Invalid categorical features. Please use a sublist out of {valid_categorical_col}"
+        )
+
+    if (not (text_col in  valid_categorical_col)) or (not(isinstance(text_col , str))):
+        raise InputValueException(
+            f"Invalid text column. Please use one out of {valid_categorical_col} in str"
+        )
+
 
     preprocessor = make_column_transformer(
         (StandardScaler(), numeric_feats),
         (OneHotEncoder(), categorical_feats),
-        (CountVectorizer(stop_words="english"), text_feat)
+        (CountVectorizer(stop_words="english"), text_col)
     )
 
     dummy = DummyRegressor()
