@@ -1,4 +1,4 @@
-def cleaner(input_dataframe, drop_nans=False, copy=False,strip_space= False, lower_case=False):
+def cleaner(input_dataframe, lower_case=False):
      """Load downloaded data, clean the dataset, remove the NA score. 
         Clean data(remove Nan rows, strip extra white spaces from column names, and data, convert all column names to lower case, etc)
         Return train_df.info() and train_df.describe()
@@ -9,32 +9,26 @@ def cleaner(input_dataframe, drop_nans=False, copy=False,strip_space= False, low
             Data set to clean
         drop_nans: bool
              Drop all rows that have a NaN in any column (default: False)
+        
 
         Returns
         -------
             (DataFrame):  A cleaned and simplified DataFrame of the relevant columns for summary and visualization,
-            (DataFrame):  for train_df.describe()
-            (DataFrame):  for train_df.info()
+
         
         Examples
         --------
         >>> cleaner(example_data)
     """
   
-    if copy:
-        input_dataframe = input_dataframe.copy()
+    input_dataframe.dropna(inplace=True)
 
-    if drop_nans:
-        input_dataframe.dropna(inplace=True)
-
-    if strip_space:
-        dinput_dataframe = input_dataframe.rename(columns=lambda x: x.strip())
+    input_dataframe = input_dataframe.rename(columns=lambda x: x.strip())
 
     if lower_case:
         input_dataframe = map(str.lower, input_dataframe)
 
-
-  return input_dataframe, input_dataframe.describe. input_dataframe.info
+    return input_dataframe
 
 
 def get_eda(data, dist_cols=None, pair_cols=None, corr_method="pearson", text_col=None, class_label=None):
