@@ -14,9 +14,6 @@ class InputValueException(Exception):
     pass
 
 
-
-
-
 def cleaner(data):
      """Load data and Clean data(remove Nan rows, strip extra white spaces from column names, and data, convert all column names to lower case, etc)
         Return clean data, train_df.info() and train_df.describe()
@@ -71,7 +68,7 @@ def get_eda(data, dist_cols=None, pair_cols=None, corr_method="pearson", text_co
         >>> get_eda(df, pair_cols = ['danceability', 'loudness'], corr_method='kendall', class_label='target')
     """
 
-def regressor(train_df, target_col, numeric_feats = None, categorical_feats=None, text_col=None, cv=5):
+def regressor(train_df, target_col, numeric_feats = [], categorical_feats=[], cv=5):
     """This function preprocess the data, fit baseline model(dummyregresor) and ridge with default setups to provide data scientists 
         easy access to the common models results(scores). 
 
@@ -85,8 +82,6 @@ def regressor(train_df, target_col, numeric_feats = None, categorical_feats=None
             The numeric features that needs to be considered in the model. If the user do not define this argument, the function will assume all the columns except the identified ones in other arguments as numeric features.
         categorical_feats : list, optional
             The categorical columns for which needs onehotencoder preprocessing.  
-        text_col : str, optional
-            The column containing free form of text, example: "Hi, I wasn't to go there" for doing countvectorizer preprocessing .
         cv : int, optional
             The number of folds on the data for train and validation set.
 
@@ -96,52 +91,59 @@ def regressor(train_df, target_col, numeric_feats = None, categorical_feats=None
             A data frame that includes test scores and train scores for each model.
         Examples
         -------
-        >>> regressor(train_df, target_col = 'popularity', categorical_features='None')
-        >>> regressor(train_df, target_col = 'popularity', numeric_feats = ['danceability', 'loudness'], categorical_feats=['genre'], text_col='track_name', cv=10)
+        >>> regressor(train_df, target_col = 'popularity', categorical_features='genre')
+        >>> regressor(train_df, target_col = 'popularity', numeric_feats = ['danceability', 'loudness'], categorical_feats=['genre'], cv=10)
     """
 
+    #Checking the type of inputs
+    if not(isinstance(train_df , pd.core.frame.DataFrame)):
+        raise TypeError("train_df must be a panda dataframe. Please pass a pd.core.frame.DataFrame train_df")
+    elif not(isinstance(target_col , str)):
+        raise TypeError("target_col must be a str. Please pass target column in str object")
+    elif not(isinstance(numeric_feats , list)):
+        raise TypeError("numerci_feats must be a list. Please pass a list of numeric columns")
+    elif not(isinstance(categorical_feats , list)):
+        raise TypeError("categorical_feats must be a list. Please pass a list of categorical columns")
 
-    if (not (train_df.isna().sum().sum() == 0)) or (not(isinstance(train_df , pd.core.frame.DataFrame))):
-        raise InputValueException(
-            f"Invalid function input. Please pass a clean pandas data frame"
+    #Checking the valid value for the inputs
+    if (not (train_df.isna().sum().sum() == 0)) :
+        raise ValueError(
+            f"Invalid train_df input. Please pass a clean pandas data frame"
         )
 
-    if (not (target_col in train_df.columns.tolist())) or (not(isinstance(target_col , str))):
-        raise InputValueException(
-            f"Invalid function input. Please use one out of {train_df.columns.tolist()}"
+    numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
+    df_1 = train_df.select_dtypes(include=numerics)
+    valid_target_col = df_1.columns.tolist()
+
+    if (not (target_col in valid_target_col)):
+        raise ValueError(
+            f"Invalid target_col input. Please use one out of {valid_target_col} in str"
         )
 
 
     X_train = train_df.drop(columns=target_col, axis=1)
-    y_train = train_df[target_col[0]]
+    y_train = train_df[target_col]
 
-    numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
-    newdf = X_train.select_dtypes(include=numerics)
-    valid_numeric_col = newdf.columns.tolist()
-    _newdf = X_train.select_dtypes(exclude=numerics)
-    valid_categorical_col =  _newdf.columns.tolist()
+    df_2 = X_train.select_dtypes(include=numerics)
+    valid_numeric_col = df_2.columns.tolist()
+    df_3 = X_train.select_dtypes(exclude=numerics)
+    valid_categorical_col =  df_3.columns.tolist()
 
 
-    if (not (set(numeric_feats).isubset(set(valid_numeric_col)))) or (not(isinstance(numeric_feats , list))):
-        raise InputValueException(
+    if not (set(numeric_feats).issubset(set(valid_numeric_col))):
+        raise ValueError(
             f"Invalid numeric features. Please use a sublist out of {valid_numeric_col}"
         )
-    
-    if (not (set(categorical_feats).isubset(set(valid_categorical_col)))) or (not(isinstance(categorical_feats , list))):
-        raise InputValueException(
+    if not (set(categorical_feats).issubset(set(valid_categorical_col))):
+        raise ValueError(
             f"Invalid categorical features. Please use a sublist out of {valid_categorical_col}"
         )
 
-    if (not (text_col in  valid_categorical_col)) or (not(isinstance(text_col , str))):
-        raise InputValueException(
-            f"Invalid text column. Please use one out of {valid_categorical_col} in str"
-        )
 
-
+    #PReprocessing and modeling
     preprocessor = make_column_transformer(
         (StandardScaler(), numeric_feats),
-        (OneHotEncoder(), categorical_feats),
-        (CountVectorizer(stop_words="english"), text_col)
+        (OneHotEncoder(), categorical_feats)
     )
 
     dummy = DummyRegressor()
@@ -151,14 +153,13 @@ def regressor(train_df, target_col, numeric_feats = None, categorical_feats=None
 
     results = pd.Series(dtype='float64') 
 
-    models = {"DummyRegressor": dummy, "Ridge" : ridge, "RidgeCv" : ridge_cv, "linearRegression" : lr}
+    models = {"DummyRegressor": dummy, "Ridge" : ridge, "RidgeCV" : ridge_cv, "linearRegression" : lr}
 
     for model in models :
-        scores = cross_validate(models[model], X_train, y_train, cv = cv)
-        mean_scores = pd.DataFrame(scores).mean()
+        scores = cross_validate(models[model], X_train, y_train, return_train_score = True,cv = cv)
+        mean_scores = pd.DataFrame(scores).mean().to_frame(model)
         results = pd.concat([results, mean_scores], axis = 1)
     results = results.drop(columns = 0, axis=1)
-    results.columns = models.keys
     
     return results
 
