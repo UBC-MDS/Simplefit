@@ -58,23 +58,23 @@ def get_eda(data, save_plot_loc, bins=40, dist_cols=None, pair_cols=None, corr_m
  
         if data is None :
             raise ValueError("Required arg 'data' cannot be empty")
-        if save_file_loc is None or save_file_loc== '':
+        if save_plot_loc is None or save_plot_loc== '':
             raise ValueError("Please provide a valid path in your system to save the plots. Example: 'Users/navyadahiya/desktop/''")
             # sys.exit(1)
 
         #check validity of file path, write test case
-        if save_file_loc is not None:
+        if save_plot_loc is not None:
 
             #check validity of location:
-            if not save_file_loc.endswith('/'):
+            if not save_plot_loc.endswith('/'):
                 raise ValueError("Please make sure that your location  ends with '/'. example: 'Users/navyadahiya/desktop/'")
-            pathExists = os.path.exists(save_file_loc)
+            pathExists = os.path.exists(save_plot_loc)
             if not pathExists:
-                os.makedirs(save_file_loc)
+                os.makedirs(save_plot_loc)
 
-            for file in os.listdir(save_file_loc):
+            for file in os.listdir(save_plot_loc):
                 if file.endswith('.png'):
-                    os.remove(save_file_loc+"/"+file)
+                    os.remove(save_plot_loc+"/"+file)
             
         # check if data is of dataframe type or not:
         if not isinstance(data, pd.DataFrame):
@@ -115,7 +115,7 @@ def get_eda(data, save_plot_loc, bins=40, dist_cols=None, pair_cols=None, corr_m
                         numeric_features, columns = 4
                     ) 
 
-        chart_numeric.save(save_file_loc+'/numeric_feature_eda.png', scale_factor=2.0)
+        chart_numeric.save(save_plot_loc+'/numeric_feature_eda.png', scale_factor=2.0)
     
         
         ## correlation plot
@@ -125,7 +125,7 @@ def get_eda(data, save_plot_loc, bins=40, dist_cols=None, pair_cols=None, corr_m
             y=alt.Y('level_1', title='All features'),
             tooltip='corr',
             color=alt.Color('corr', scale=alt.Scale(domain=(-1, 1), scheme='purpleorange')))
-        corr_plot.save(save_file_loc+'/correlation_plot.png')
+        corr_plot.save(save_plot_loc+'/correlation_plot.png')
     
     
         if pair_cols is None:
@@ -142,8 +142,8 @@ def get_eda(data, save_plot_loc, bins=40, dist_cols=None, pair_cols=None, corr_m
             column=pair_cols,
             row=pair_cols
         )
-        splom.save(save_file_loc+'/splom_plot.png')
-        # print(data.describe(include='all'))
+        splom.save(save_plot_loc+'/splom_plot.png')
+        
         return data.describe(include='all')
     except Exception as e:
         print(e)
