@@ -21,7 +21,7 @@ def cleaner(input_dataframe, lower_case=False):
         >>> cleaner(example_data)
     """
 
-    
+
     input_dataframe.dropna(inplace=True)
 
     ## Handle dataframe type error (Check if dataframe is of type Pandas DataFrame)
@@ -31,6 +31,9 @@ def cleaner(input_dataframe, lower_case=False):
     ## Handle empty dataframe or dataframe with all NAN
     if input_dataframe.empty or input_dataframe.dropna().empty:
         raise ValueError("passed dataframe is None")
+        
+    ## Drop all rows that have a NaN in any column
+    input_dataframe.dropna(inplace=True)
         
     ## Strip extra white spaces from column names, and data
     input_dataframe = input_dataframe.rename(columns=lambda x: x.strip())
