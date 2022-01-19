@@ -68,7 +68,7 @@ def get_eda(data, dist_cols=None, pair_cols=None, corr_method="pearson", text_co
         >>> get_eda(df, pair_cols = ['danceability', 'loudness'], corr_method='kendall', class_label='target')
     """
 
-def regressor(train_df, target_col, numeric_feats = [], categorical_feats=[], cv=5):
+def regressor(train_df, target_col, numeric_feats = None, categorical_feats=None, cv=5):
     """This function preprocess the data, fit baseline model(dummyregresor) and ridge with default setups to provide data scientists 
         easy access to the common models results(scores). 
 
@@ -94,14 +94,18 @@ def regressor(train_df, target_col, numeric_feats = [], categorical_feats=[], cv
         >>> regressor(train_df, target_col = 'popularity', categorical_features='genre')
         >>> regressor(train_df, target_col = 'popularity', numeric_feats = ['danceability', 'loudness'], categorical_feats=['genre'], cv=10)
     """
+    
+
 
     #Checking the type of inputs
     if not(isinstance(train_df , pd.core.frame.DataFrame)):
         raise TypeError("train_df must be a panda dataframe. Please pass a pd.core.frame.DataFrame train_df.")
-    elif not(isinstance(target_col , str)):
+    if not(isinstance(target_col , str)):
         raise TypeError("target_col must be a str. Please pass target column in str object.")
-    elif not(isinstance(numeric_feats , list)):
+    if not(isinstance(numeric_feats , list)) and numeric_feats is not None:
         raise TypeError("numerci_feats must be a list. Please pass a list of numeric columns.")
+    if categorical_feats is None :
+        categorical_feats = []
     elif not(isinstance(categorical_feats , list)):
         raise TypeError("categorical_feats must be a list. Please pass a list of categorical columns.")
 
@@ -111,26 +115,22 @@ def regressor(train_df, target_col, numeric_feats = [], categorical_feats=[], cv
             f"Invalid train_df input. Please pass a clean pandas data frame"
         )
 
-    numerics = ['int16', 'int32', 'int64', 'float16', 'float32', 'float64']
-    df_1 = train_df.select_dtypes(include=numerics)
-    valid_target_col = df_1.columns.tolist()
+    valid_target_col = train_df.select_dtypes('number').columns.tolist()
 
     if (not (target_col in valid_target_col)):
         raise ValueError(
             f"Invalid target_col input. Please use one out of {valid_target_col} in str"
         )
 
-
     X_train = train_df.drop(columns=target_col, axis=1)
     y_train = train_df[target_col]
 
-    df_2 = X_train.select_dtypes(include=numerics)
-    valid_numeric_col = df_2.columns.tolist()
-    df_3 = X_train.select_dtypes(exclude=numerics)
-    valid_categorical_col =  df_3.columns.tolist()
+    valid_numeric_col = X_train.select_dtypes('number').columns.tolist()
+    valid_categorical_col =  X_train.select_dtypes(exclude='number').columns.tolist()
 
-
-    if not (set(numeric_feats).issubset(set(valid_numeric_col))):
+    if numeric_feats is None:
+        numeric_feats = valid_numeric_col
+    elif not (set(numeric_feats).issubset(set(valid_numeric_col))):
         raise ValueError(
             f"Invalid numeric features. Please use a sublist out of {valid_numeric_col}"
         )
@@ -139,7 +139,7 @@ def regressor(train_df, target_col, numeric_feats = [], categorical_feats=[], cv
             f"Invalid categorical features. Please use a sublist out of {valid_categorical_col}"
         )
 
-
+    
     #PReprocessing and modeling
     preprocessor = make_column_transformer(
         (StandardScaler(), numeric_feats),
@@ -148,7 +148,7 @@ def regressor(train_df, target_col, numeric_feats = [], categorical_feats=[], cv
 
     dummy = DummyRegressor()
     ridge = make_pipeline(preprocessor, Ridge())
-    ridge_cv = make_pipeline(preprocessor, RidgeCV())
+    ridge_cv = make_pipeline(preprocessor, RidgeCV(cv = cv))
     lr = make_pipeline(preprocessor, LinearRegression())
 
     results = pd.Series(dtype='float64') 
