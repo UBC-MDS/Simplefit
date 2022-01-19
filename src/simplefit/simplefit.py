@@ -97,13 +97,13 @@ def regressor(train_df, target_col, numeric_feats = [], categorical_feats=[], cv
 
     #Checking the type of inputs
     if not(isinstance(train_df , pd.core.frame.DataFrame)):
-        raise TypeError("train_df must be a panda dataframe. Please pass a pd.core.frame.DataFrame train_df")
+        raise TypeError("train_df must be a panda dataframe. Please pass a pd.core.frame.DataFrame train_df.")
     elif not(isinstance(target_col , str)):
-        raise TypeError("target_col must be a str. Please pass target column in str object")
+        raise TypeError("target_col must be a str. Please pass target column in str object.")
     elif not(isinstance(numeric_feats , list)):
-        raise TypeError("numerci_feats must be a list. Please pass a list of numeric columns")
+        raise TypeError("numerci_feats must be a list. Please pass a list of numeric columns.")
     elif not(isinstance(categorical_feats , list)):
-        raise TypeError("categorical_feats must be a list. Please pass a list of categorical columns")
+        raise TypeError("categorical_feats must be a list. Please pass a list of categorical columns.")
 
     #Checking the valid value for the inputs
     if (not (train_df.isna().sum().sum() == 0)) :
