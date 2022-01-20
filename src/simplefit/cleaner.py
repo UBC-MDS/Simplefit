@@ -1,3 +1,6 @@
+import pandas as pd
+import numpy as np
+
 def cleaner(input_dataframe,lower_case=False):
     """
         Load downloaded data, clean the dataset, remove the NA score. 
@@ -28,7 +31,12 @@ def cleaner(input_dataframe,lower_case=False):
     if (input_dataframe.empty or input_dataframe.dropna().empty):
 
         raise ValueError("passed dataframe is None")
-        
+
+    # Handle type Value error (Check if is a boolean')
+    if not isinstance(lower_case, bool):
+
+        raise TypeError("passed type should be a boolean")
+
     # Drop all rows that have a NaN in any column
     input_dataframe.dropna(inplace=True)
         
