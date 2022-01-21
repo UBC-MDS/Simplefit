@@ -18,6 +18,7 @@ def df():
 
 def test_plot_distributions():
     """Test plot_distributions on a dataframe."""
+
     # Case 1: Test default settings and return
     chart = plot_distributions(df())
     assert isinstance(
@@ -33,12 +34,12 @@ def test_plot_distributions():
     assert chart.spec._kwds['mark'] == 'bar', "Altair mark should be 'bar'"
 
     # Case 3: Test erroneous inputs
-    # with pytest.raises(Exception):
-    #     plot_distributions([1, 2, 3])
+    with pytest.raises(Exception):
+        plot_distributions([1, 2, 3])
 
     with pytest.raises(TypeError) as e:
         plot_distributions(df(), dist_cols= "A")
-    assert str(e.value) == "helo"
+
 
     with pytest.raises(Exception):
         plot_distributions(df(), bins = "ten")
@@ -54,20 +55,21 @@ def test_plot_corr():
     # Case 1: Test default settings and return
     chart = plot_corr(df())
     assert isinstance(
-        chart, alt.vegalite.v4.api.RepeatChart
-    ), "Altair RepeatChart object should be returned."
-    assert chart.spec._kwds['mark'] == 'bar', "Altair mark should be 'bar'"
+        chart, alt.vegalite.v4.api.Chart
+    ), "Altair Chart object should be returned."
+    assert chart.mark == 'rect', "Altair mark should be 'rect'"
 
     # Case 2: Test non-default settings and return
-    chart = plot_corr(df(), ['A', 'B', 'C'], bins = 40, dist_cols=['A', 'B', 'C'])
-    # assert isinstance(
-    #     chart, alt.vegalite.v4.api.Chart
-    # ), "Altair Chart object should be returned."
-    # assert chart.spec._kwds['mark'] == 'rect', "Altair mark should be 'rect'"
+    chart = plot_corr(df(), corr='spearman')
+    assert isinstance(
+        chart, alt.vegalite.v4.api.Chart
+    ), "Altair Chart object should be returned."
+    assert chart.mark == 'rect', "Altair mark should be 'rect'"
 
     # Case 3: Test erroneous inputs
-    with pytest.raises(Exception):
+    with pytest.raises(Exception) as e:
         plot_corr([1, 2, 3])
+    
 
     with pytest.raises(Exception):
         plot_corr(df(), corr= "A")
@@ -88,16 +90,19 @@ def test_plot_splom():
     assert isinstance(
         chart, alt.vegalite.v4.api.RepeatChart
     ), "Altair RepeatChart object should be returned."
-    assert chart.spec._kwds['mark'] == 'point', "Altair mark should be 'point'"
+    assert chart.spec._kwds['mark']['type']  == 'point', "Altair mark should be 'point'"
 
     # Case 2: Test non-default settings and return
     chart = plot_splom(df(), pair_cols=["A", "B"])
     assert isinstance(
-        chart, alt.vegalite.v4.api.Chart
+        chart, alt.vegalite.v4.api.RepeatChart
     ), "Altair RepeatChart object should be returned."
-    assert chart.spec._kwds['mark'] == 'rect', "Altair mark should be 'rect'"
+    assert chart.spec._kwds['mark']['type'] == 'point', "Altair mark should be 'point'"
 
     # Case 3: Test erroneous inputs
+    with pytest.raises(Exception):
+        plot_splom()
+
     with pytest.raises(Exception):
         plot_splom([1, 2, 3])
 
