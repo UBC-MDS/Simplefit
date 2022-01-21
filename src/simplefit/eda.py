@@ -8,7 +8,25 @@ alt.renderers.enable('mimetype')
 
 
 def plot_distributions(data, bins = 40, dist_cols=None, class_label=None):
+    """This function creates numerical distribution plots on either all the numeric columns or the ones provided to it
         
+        Parameters
+        ----------
+        data : pandas.DataFrame
+            The dataframe for which distribution plot has to be created
+        dist_cols : list, optional
+            The subset of numeric columns for which the histogram plots have to be generated
+        class_label : str, optional
+            The name of the target column only in case of classification dataset. For regression dataset, it is not required
+        Returns
+        -------
+        chart_numeric
+            The Altair object for the plot
+        Examples
+        -------
+        >>> plot_distributions(data)
+        >>> plot_distributions(data, dist_cols=['loudness', 'acousticness'], class_label='target')
+    """
     if data is None:
         raise ValueError("Required arg 'data' cannot be empty")
     
@@ -57,7 +75,24 @@ def plot_distributions(data, bins = 40, dist_cols=None, class_label=None):
 
 
 def plot_corr(data, corr='spearman'):
-   
+    """This function creates correlation plot for all the columns in the dataframe
+        
+        Parameters
+        ----------
+        data : pandas.DataFrame
+            The dataframe for which distribution plot has to be created
+        corr : str
+            The correlation method, which can be among 'spearman', 'kendall' or 'pearson'
+            The default value is spearman
+        Returns
+        -------
+        corr_plot
+            The Altair object for the plot
+        Examples
+        -------
+        >>> plot_corr(data)
+        >>> plot_corr(data, corr='kendall')
+    """    
     if data is None :
         raise ValueError("Required arg 'data' cannot be empty")
     if not isinstance(data, pd.DataFrame):
@@ -77,7 +112,23 @@ def plot_corr(data, corr='spearman'):
   
 
 def plot_splom(data, pair_cols=None):
-  
+    """This function creates SPLOM plot for all the numeric columns in the dataframe or the ones passed by the user
+        
+        Parameters
+        ----------
+        data : pandas.DataFrame
+            The dataframe for which distribution plot has to be created
+        pair_cols : list
+            The list of dataframe columns, for which correlation plot is to be generated
+        Returns
+        -------
+        splom_chart
+            The Altair object for the plot
+        Examples
+        -------
+        >>> plot_splom(data)
+        >>> plot_splom(data, pair_cols=['loudness', 'acousticness', 'energy'])
+    """    
     if data is None :
         raise ValueError("Required arg 'data' cannot be empty")
     if not isinstance(data, pd.DataFrame):
