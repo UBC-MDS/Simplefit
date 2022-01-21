@@ -1,3 +1,11 @@
+import pandas as pd
+from sklearn.compose import make_column_transformer
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.dummy import DummyClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import cross_validate
+from sklearn.pipeline import make_pipeline
+
 def classifier(train_df, target_col, numeric_feats = None, categorical_feats = None, cv = 5):
     """This function preprocess the data, fit baseline model(dummyclassifier) and logistic regression with default setups to provide data scientists 
         easy access to the common models results(scores). 
