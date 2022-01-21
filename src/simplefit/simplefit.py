@@ -96,7 +96,6 @@ def regressor(train_df, target_col, numeric_feats = None, categorical_feats=None
     """
     
 
-
     #Checking the type of inputs
     if not(isinstance(train_df , pd.core.frame.DataFrame)):
         raise TypeError("train_df must be a panda dataframe. Please pass a pd.core.frame.DataFrame train_df.")
