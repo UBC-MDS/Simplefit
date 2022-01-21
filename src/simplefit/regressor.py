@@ -1,8 +1,7 @@
-import numpy as np
 import pandas as pd
 from sklearn.dummy import DummyRegressor
-from sklearn.compose import ColumnTransformer, make_column_transformer
-from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.compose import make_column_transformer
+from sklearn.model_selection import cross_validate, train_test_split
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
 from sklearn.feature_extraction.text import CountVectorizer
