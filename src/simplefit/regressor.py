@@ -1,3 +1,13 @@
+import numpy as np
+import pandas as pd
+from sklearn.dummy import DummyRegressor
+from sklearn.compose import ColumnTransformer, make_column_transformer
+from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder, StandardScaler
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LinearRegression, Ridge, RidgeCV
+
 def regressor(train_df, target_col, numeric_feats = None, categorical_feats=None, cv=5):
     """This function preprocess the data, fit baseline model(dummyregresor) and ridge with default setups to provide data scientists 
         easy access to the common models results(scores). 
