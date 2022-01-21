@@ -1,16 +1,12 @@
-def cleaner(input_dataframe, lower_case=False):
-     """Load downloaded data, clean the dataset, remove the NA score. 
-        Clean data(remove Nan rows, strip extra white spaces from column names, and data, convert all column names to lower case, etc)
-        Return train_df.info() and train_df.describe()
-        
+def cleaner(data):
+     """Load data and Clean data(remove Nan rows, strip extra white spaces from column names, and data, convert all column names to lower case, etc)
+        Return clean data, train_df.info() and train_df.describe()
         Parameters
         ----------
-        input_dataframe: pandas.DataFrame
-            Data set to clean
-        drop_nans: boolean
-             Drop all rows that have a NaN in any column (default: False)
-        
-
+        data : pandas.DataFrame
+            The dataset provided by the user in .csv format 
+  
+>>>>>>> main
         Returns
         -------
             (DataFrame):  A cleaned and simplified DataFrame of the relevant columns for summary and visualization,
