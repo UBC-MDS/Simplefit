@@ -14,6 +14,8 @@ def plot_distributions(data, bins = 40, dist_cols=None, class_label=None):
         ----------
         data : pandas.DataFrame
             The dataframe for which distribution plot has to be created
+        bins : int
+            The number of bins for histogram plot
         dist_cols : list, optional
             The subset of numeric columns for which the histogram plots have to be generated
         class_label : str, optional
