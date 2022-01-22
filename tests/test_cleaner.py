@@ -28,7 +28,7 @@ def test_correct_output():
     # Tests that cleaner returns a dataframe 
     output = cleaner(df())
 
-    assert type(output) == pd.DataFrame, "Output is not a pandas DataFrame"
+    assert isinstance(output, pd.DataFrame), "Output is not a pandas DataFrame"
 
 
 def test_correct_columns():
@@ -36,3 +36,4 @@ def test_correct_columns():
     output= cleaner(df(),lower_case=True)
     expected_columns = ['num_legs', 'num_  wings', 'num specimen seen']
     assert list(output.columns) == list(expected_columns), "not equal"
+    
