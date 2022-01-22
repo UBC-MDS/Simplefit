@@ -42,7 +42,7 @@ def cleaner(input_dataframe,lower_case=False):
     # Strip extra white spaces from column names, and data
     input_dataframe = input_dataframe.rename(columns=lambda x: x.strip())
     
-    # Drop all rows that have a NaN in any column (default: False)
+    # convert all column names to lower case (default: False)
     if lower_case:
         input_dataframe.columns= input_dataframe.columns.str.strip().str.lower()
         
