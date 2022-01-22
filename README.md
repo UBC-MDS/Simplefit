@@ -26,7 +26,7 @@ There exists a subset of our package as standalone packages, namely [auto-eda](h
 ## Installation
 
 ```bash
-$ pip install simplefit
+$ pip install git+https://github.com/UBC-MDS/simplefit
 ```
 
 ## Usage
