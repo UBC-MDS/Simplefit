@@ -14,7 +14,7 @@ def cleaner(input_dataframe,lower_case=False):
              Drop all rows that have a NaN in any column (default: False)
         
         Returns
-        -------
+        --------
             (DataFrame):  A cleaned and simplified DataFrame of the relevant columns for summary and visualization,
 
         Examples
