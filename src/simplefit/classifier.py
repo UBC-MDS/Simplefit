@@ -6,6 +6,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import cross_validate
 from sklearn.pipeline import make_pipeline
 
+
 def classifier(train_df, target_col, numeric_feats = None, categorical_feats = None, cv = 5):
     """This function preprocess the data, fit baseline model(dummyclassifier) and logistic regression with default setups to provide data scientists 
         easy access to the common models results(scores). 
@@ -40,20 +41,22 @@ def classifier(train_df, target_col, numeric_feats = None, categorical_feats = N
         raise TypeError("Numeric Features should be passed as a list")
     if not(isinstance(categorical_feats , list)):
         raise TypeError("Categorical Features should be passed as a list")
+    if not(isinstance(target_col , str)):
+        raise TypeError("Target column must be passed as a string")
 
     
     X_train = train_df.drop(columns=target_col, axis=1)
     y_train = train_df[target_col]
 
 
-    if (not(isinstance(numeric_feats , list))):
-        raise TypeError(f"The numeric features have to be entered as a list")
-    if (not(isinstance(categorical_feats , list))):
-        raise TypeError(f"The categorical features have to be entered as a list")
+    if not isinstance(numeric_feats, list):
+        raise TypeError("The numeric features have to be entered as a list")
+    if not isinstance(categorical_feats , list):
+        raise TypeError("The categorical features have to be entered as a list")
     
-    if numeric_feats == []:
+    if numeric_feats == None or numeric_feats==[]:
         numeric_feats = train_df.select_dtypes(include='number').columns.tolist()
-    if categorical_feats == []:
+    if categorical_feats == None or categorical_feats ==[]:
         categorical_feats = train_df.select_dtypes(exclude='number').columns.tolist()
 
 
