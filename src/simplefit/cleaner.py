@@ -5,7 +5,6 @@ def cleaner(input_dataframe,lower_case=False):
     """
         Load downloaded data, clean the dataset, remove the NA score. 
         Clean data(remove Nan rows, strip extra white spaces from column names, and data, convert all column names to lower case, etc)
-        Return train_df.info() and train_df.describe()
         
         Parameters
         ----------
