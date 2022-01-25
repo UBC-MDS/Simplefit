@@ -42,8 +42,8 @@ jobs:
         fail_ci_if_error: true
 
         # Step 8. Build documentation
-    - name: Build documentation
-      run: poetry run make html --directory docs/
+#     - name: Build documentation
+#       run: poetry run make html --directory docs/
       
       
       
