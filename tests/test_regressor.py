@@ -7,23 +7,6 @@ import pytest
 def test_regressor():
     """Test regrssor function outputs with SpotifyFeatures.csv file."""
 
-    # spotify_df = pd.read_csv("tests/data/SpotifyFeatures.csv")
-    # train_df, test_df = train_test_split(spotify_df, test_size=0.97, random_state=123)
-    # regressor_df = regressor(train_df, target_col="popularity",
-    #                         numeric_feats=['acousticness', 'danceability', 'duration_ms'],
-    #                         categorical_feats=['genre'])
-    # actual_test_score = regressor_df.loc["test_score"].tolist()
-    # actual_test_score = [round(num, 2) for num in actual_test_score]
-    # expected_test_score = [-0.00, 0.73, 0.73, 0.73]
-    
-    # actual_train_score = regressor_df.loc["train_score"].tolist()
-    # actual_train_score = [round(num, 2) for num in actual_train_score]
-    # expected_train_score = [0.0, 0.73, 0.73, 0.73]
-
-    # assert actual_test_score == expected_test_score, "regressor modeled incorrectly test scores are not equal to what they should be!"
-    # assert actual_train_score == expected_train_score, "regressor modeled incorrectly train scores are not equal to what they should be!"
-
-
     spotify_df = pd.read_csv("tests/data/SpotifyFeatures.csv")
     train_df, test_df = train_test_split(spotify_df, test_size=0.97, random_state=123)
     regressor_df = regressor(train_df, target_col="popularity",
