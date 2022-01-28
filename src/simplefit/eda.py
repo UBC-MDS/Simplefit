@@ -3,7 +3,7 @@ import altair as alt
 
 
 import os
-# alt.renderers.enable('notebook')
+alt.renderers.enable('html')
 # alt.renderers.enable('mimetype')
 
 
@@ -71,7 +71,7 @@ def plot_distributions(data, bins = 40, dist_cols=None, class_label=None):
                         width=300,
                         height=200
                     ).repeat(
-                        numeric_features, columns = 4
+                        numeric_features, columns = 2
                     ) 
     return chart_numeric
 
