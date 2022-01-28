@@ -10,15 +10,16 @@ from sklearn.pipeline import make_pipeline
 def classifier(train_df, target_col, numeric_feats = None, categorical_feats = None, cv = 5):
     """This function preprocess the data, fit baseline model(dummyclassifier) and logistic regression with default setups to provide data scientists 
         easy access to the common models results(scores). 
+        
         Parameters
         ----------
         train_df : pandas.DataFrame
             The clean train data which includes target column.
         target_col : str
             The column of the train data that has the target values.
-        numeric_feats = list, optional
+        numeric_feats = list
             The numeric features that needs to be considered in the model. If the user enters an empty list, the function will use all numeric columns.
-        categorical_feats : list, optional
+        categorical_feats : list
             The categorical features that needs to be considered in the model. 
         cv : int, optional
             The number of folds on the data for train and validation set.
