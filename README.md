@@ -13,7 +13,7 @@ This package helps data scientists to clean the data, perform basic EDA, visuali
 |---------------|--------------------------------------------------------------------------------------------|-------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
 | cleaner       | `dataframe`                                                                                | list of 3 dataframes          | Loads and cleans the dataset, removes NA rows, strip extra white spaces, etc  and returns clean dataframe                                                    |
 | plot_distributions       | `dataframe`, `bins`, `dist_cols`, `class_label`              | Altair histogram plot object  | creates numerical distribution plots on either all the numeric columns or the ones provided to it  |
-| plot_corr       | `dataframe`, `corr`              | Altair correlation plot object  | creates creates correlation plot for all the columns in the dataframe |
+| plot_corr       | `dataframe`, `corr`              | Altair correlation plot object  | creates correlation plot for all the columns in the dataframe |
 | plot_splom       | `dataframe`, `pair_cols`              | Altair SPLOM plot object  | creates SPLOM plot for all the numeric columns in the dataframe or the ones passed by the user |
 | regressor     | `train_df`, `target_col`, `numeric_feats`, `categorical_feats`, `text_col`, `cv`           | `dataframe`                   | Preprocesses the data, fits baseline model(`Dummy Regressor`) and `Ridge` with default setup and returns model scores in the form of a dataframe               |
 | classifier    | `train_df` ,  `target_col` ,  `numeric_feats` ,  `categorical_feats` ,  `text_col` ,  `cv` | `dataframe`                   | Preprocesses the data, fits baseline model(`Dummy Classifier`) and `Logistic Regression` with default setup and returns model scores in the form of a dataframe|
@@ -33,7 +33,7 @@ $ pip install git+https://github.com/UBC-MDS/simplefit
 
 ## Usage
 
-- TODO
+[![Documentation Status](https://readthedocs.org/projects/simplefit/badge/?version=latest)](https://simplefit.readthedocs.io/en/latest/?badge=latest)
 
 ## Contributing
 
