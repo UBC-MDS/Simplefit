@@ -4,18 +4,21 @@ on:
   # Trigger the workflow on push or pull request to main
   push:
     branches:
-      - main
+      - '**'
+    tags-ignore:
+      - '*.*'
   pull_request:
     branches:
-      - main
+      - '**'
+      
 jobs:
   ci:
     # Set up operating system
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: [3.9]
+    runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         os: [ubuntu-latest, macos-latest, windows-latest]
+#         python-version: [3.9]
     
     steps:
     - name: Setup Python
@@ -56,58 +59,85 @@ jobs:
     # Step 1. Set up operating system
     runs-on: ubuntu-latest
     steps:
+
     # Step 2. Set up Python 3.9
     - uses: actions/setup-python@v2
       with:
         python-version: 3.9
+
     # Step 3. Check-out repository so we can access its contents
     - uses: actions/checkout@v2
       with:
-        fetch-depth: 0
-        
-        
-        
+        ref: main
+        token : ${{ secrets.ACCESS_TOKEN }}
+    
+
+    # Step 4. Install poetry
+    - uses: snok/install-poetry@v1
+
+    # Step 5. Install our package
+    - name: Install package
+      run: poetry install     
+
+    
+    # Step 6. Turn off branch protection
     - name: Disable admin branch protection
       uses: benjefferies/branch-protection-bot@master
       if: always()
       with:
-          access-token: ${{ secrets.ACCESS_TOKEN }}
+          access_token: ${{ secrets.ACCESS_TOKEN }}
           branch: main
           enforce_admins: false
-          
-          
-    # Step 4. Use PSR to make release
-    - name: Python Semantic Release
+    
+    # Step 7. Bump version and tagging
+    - name: Bump version and tagging and publish
       run: |
-          pip install python-semantic-release
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          semantic-release publish
-          
-          
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git pull origin main
+        poetry run semantic-release version
+        poetry version
+        git commit --amend -m "[skip actions] Bump new version"
+        git push --tag
+        
+    - name: Push package version changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.ACCESS_TOKEN }}
+
+   
+    # Step 8. Turn on branch protection
     - name: Enable admin branch protection
       uses: benjefferies/branch-protection-bot@master
       if: always()  # Force to always run this step to ensure "include administrators" is always turned back on
       with:
-        access-token: ${{ secrets.ACCESS_TOKEN }}
+        access_token: ${{ secrets.ACCESS_TOKEN }}
         branch: main
         enforce_admins: true
+    
+
+    # Step 9. Build package    
+    - name: Build package and publish to test PyPI
+      run: |
+        poetry build       
         
-    # Step 5. Publish to TestPyPI
+    # Step 10. Publish to TestPyPI
     - uses: pypa/gh-action-pypi-publish@release/v1
       with:
         user: __token__
         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
         repository_url: https://test.pypi.org/legacy/
         skip_existing: true
-    # Step 6. Test install from TestPyPI
+        
+    # Step 11. Test install from TestPyPI
     - name: Test install from TestPyPI
       run: |
           pip install \
           --index-url https://test.pypi.org/simple/ \
           --extra-index-url https://pypi.org/simple \
-          simplefit
-    # Step 7. Publish to PyPI
+          covizpy
+          
+    # Step 12. Publish to PyPI
     - uses: pypa/gh-action-pypi-publish@release/v1
       with:
         user: __token__
