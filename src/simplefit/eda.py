@@ -3,8 +3,8 @@ import altair as alt
 
 
 import os
-alt.renderers.enable('notebook')
-alt.renderers.enable('mimetype')
+# alt.renderers.enable('notebook')
+# alt.renderers.enable('mimetype')
 
 
 def plot_distributions(data, bins = 40, dist_cols=None, class_label=None):
