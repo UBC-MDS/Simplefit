@@ -44,10 +44,11 @@ jobs:
         file: ./coverage.xml    # coverage report
         fail_ci_if_error: true
 
-        # Step 8. Build documentation
+        # Step 8. Build and clean documentation
+    - name: Clean documentation
+      run: poetry run make clean html --directory docs/
     - name: Build documentation
       run: poetry run make html --directory docs/
-      
       
       
       
