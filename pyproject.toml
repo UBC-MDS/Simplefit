@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "simplefit"
-version = "0.1.3"
+version = "0.1.4"
 description = "Package that will clean the data, do basic EDA and provide an insight to basic models, LR and ridge"
 authors = ["Reza Zoe Navya Sanchit"]
 license = "MIT"
