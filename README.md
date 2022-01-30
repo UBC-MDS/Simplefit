@@ -1,5 +1,8 @@
 # simplefit
 
+[![ci-cd](https://github.com/UBC-MDS/simplefit/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/UBC-MDS/simplefit/actions/workflows/ci-cd.yml)  [![Documentation Status](https://readthedocs.org/projects/simplefit/badge/?version=latest)](https://simplefit.readthedocs.io/en/latest/?badge=latest)
+
+
 A python package that cleans the data, does basic EDA and returns scores for basic classification and regression models
 <br>
 
